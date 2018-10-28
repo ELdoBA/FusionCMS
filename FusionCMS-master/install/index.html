@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Installation - FusionCMS</title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+
+		<link rel="shortcut icon" href="images/favicon.png" />
+		<link rel="stylesheet" href="css/main.css" type="text/css" />
+
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript" ></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript" ></script>
+
+		<script src="js/ui.js" type="text/javascript"></script>
+		<script src="js/ajax.js" type="text/javascript"></script>
+		<script src="js/memory.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function()
+			{
+				UI.initialize();
+				Ajax.initialize();
+				Memory.populate();
+			})
+		</script>
+
+		<!--[if IE]>
+			<style type="text/css">
+			#main .right h2 img {
+				position:relative;
+			}
+			</style>
+		<![endif]-->
+
+		<!--[if LTE IE 7]>
+			<style type="text/css">
+			#main .right .statistics span {
+				width:320px;
+			}
+			</style>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div id="popup_bg"></div>
+
+		<!-- confirm box -->
+		<div id="confirm" class="popup">
+			<h1 class="popup_question" id="confirm_question"></h1>
+
+			<div class="popup_links">
+				<a href="javascript:void(0)" class="popup_button" id="confirm_button"></a>
+				<a href="javascript:void(0)" class="popup_hide" id="confirm_hide" onClick="UI.hidePopup()">
+					Cancel
+				</a>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+
+		<!-- alert box -->
+		<div id="alert" class="popup">
+			<h1 class="popup_message" id="alert_message"></h1>
+
+			<div class="popup_links">
+				<a href="javascript:void(0)" class="popup_button" id="alert_button">Okay</a>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+
+		<div id="wrap">
+			<div id="fixer">
+				<!-- Top bar -->
+				<header>
+					<div class="center_1020">
+						<a href="http://fusion.raxezdev.com" class="logo"></a>
+					</div>
+				</header>
+
+				<!-- Main content -->
+				<section id="wrapper">
+					<div id="top_spacer"></div>
+					<div class="center_1020" id="main">
+
+						<!-- Main Left column -->
+						<aside class="left">
+							<nav>
+								<a class="active"><div class="icon dashboard"></div> Install</a>
+								<section class="sub">
+									<a class="active"><div class="icon file"></div> Introduction</a>
+									<a><div class="icon link"></div> Requirements</a>
+									<a><div class="icon list"></div> General</a>
+									<a><div class="icon database"></div> Database</a>
+									<a><div class="icon database"></div> Realms</a>
+									<a><div class="icon cursor"></div> Complete installation</a>
+								</section>
+							</nav>
+
+							<div class="spacer"></div>
+						</aside>
+
+						<!-- Main right column -->
+						<aside class="right">
+							<h1 id="page_title">Install</h1>
+
+							<section class="box big" id="installer_step_1">
+								<h2><img src="images/icons/black16x16/ic_empty_document.png"/> Introduction</h2>
+
+								<span>
+
+									<div class="introduction">
+										<h3>Welcome to FusionCMS</h3>
+									
+										<b>Dear customer</b>, We are happy to introduce you to the next chapter of our very own FusionCMS. Years have passed since the initial release and the system has grown better and stronger for every version. The core of this beast is powered by clean, object oriented PHP code, kept in shape by the incredibly powerful CodeIgniter framework. On the front we also make sure to amaze your visitors with more Javascript-powered live interactions than ever before.
+									</div>
+								</span>
+
+								<div class="installer_navigation">
+									<a href="javascript:void(0)" onClick="UI.Navigation.next()" class="nice_button">Start the installer</a>
+								</div>
+							</section>
+
+							<section class="box big" id="installer_step_2" style="display:none;">
+								<h2><img src="images/icons/black16x16/ic_empty_document.png"/> Server requirements <span style="color:red;display:inline;padding:0px;">(important!)</span></h2>
+
+								<span>
+
+									<div class="introduction">
+										<h3>What do I need to run this system?</h3>
+									
+										<div style="font-weight:bold;margin-bottom:20px;margin-top:20px;" id="config_folder">&bull; /application/config/ needs to be writable (see <a href="http://en.wikipedia.org/wiki/Chmod" target="_blank">chmod</a>)</div>
+
+										<div style="font-weight:bold;margin-bottom:20px;margin-top:20px;" id="modules_folder">&bull; /application/modules/ is writable</div>
+
+										<div style="font-weight:bold;margin-bottom:20px;margin-top:20px;" id="cache_folder">&bull; /application/cache/</div>
+
+										<div style="font-weight:bold;margin-bottom:20px;margin-top:20px;">If you're on a web host, Apache may already be properly configured.</div>
+
+										&bull; <b>Apache:</b> mod_rewrite, mod_headers, mod_expires, mod_deflate
+										<div class="how_to_box">
+											Go into your Apache directory and find the <b>httpd.conf</b> file. Mine was located in "C:\wamp\bin\apache\apache2.2.22\conf\". Open the file with a text editor and search (CTRL+F) for one of the modules you need to enable. To enable them, simply remove the #-character in front of the line.<br /><br />
+											<img src="images/apache.jpg" style="border:1px solid #ccc" />
+										</div>
+
+										&bull; <b>PHP:</b> php_curl, php_openssl, php_soap, php_gd, php_mbstring, php_json
+										<div class="how_to_box">
+											Go into your PHP directory and find the <b>php.ini</b> file. Mine was located in "C:\wamp\bin\php\php5.3.13". Open the file with a text editor and search (CTRL+F) for one of the modules you need to enable. To enable them, simply remove the ;-character in front of the line.<br /><br />
+
+											<img src="images/php.jpg" style="border:1px solid #ccc" />
+										</div>
+									</div>
+								</span>
+
+								<div class="installer_navigation">
+									<a href="javascript:void(0)" onClick="UI.Navigation.previous()" class="nice_button">Previous step</a>
+									<a href="javascript:void(0)" onClick="UI.Navigation.next()" class="nice_button">Next step</a>
+								</div>
+							</section>
+
+							<section class="box big" id="installer_step_3" style="display:none;">
+								<h2><img src="images/icons/black16x16/ic_list.png"/> General settings</h2>
+
+								<span>
+										All options can be modified later.
+								</span>
+
+								<form>
+									<label for="title">Website title</label>
+									<input type="text" id="title" placeholder="MyServer" />
+
+									<label for="server_name">Server name</label>
+									<input type="text" id="server_name" placeholder="MyServer" />
+
+									<label for="realmlist">Realmlist</label>
+									<input type="text" id="realmlist" placeholder="logon.myserver.com" />
+
+									<label for="security_code">Admin panel extra security password</label>
+									<input type="text" id="security_code" />
+
+									<label for="expansion">Max expansion</label>
+									<select id="expansion">
+										<option value="cataclysm">Cataclysm</option>
+										<option value="wotlk">Wrath of the Lich King</option>
+										<option value="tbc">The Burning Crusade</option>
+										<option value="vanilla">No expansion allowed</option>
+									</select>
+
+									<label for="keywords">Search engine: keywords (separated by comma)</label>
+									<input type="text" id="keywords" placeholder="world of warcraft,wow,private server,pvp" />
+
+									<label for="description">Search engine: description</label>
+									<input type="text" id="description" placeholder="Best World of Warcraft private server in the entire world!" />
+
+									<label for="analytics"><a href="http://analytics.google.com" target="_blank">Google Analytics</a> website ID for advanced statistics (optional)</label>
+									<input type="text" id="analytics" placeholder="XX-YYYYYYYY-Z" />
+
+									<label for="cdn">Use content delivery network for Javascript libraries (do only disable it for LAN-only environments)</label>
+									<select id="cdn">
+										<option value="1">Yes</option>
+										<option value="0">No</option>
+									</select>
+								</form>
+								
+								<div class="installer_navigation">
+									<a href="javascript:void(0)" onClick="UI.Navigation.previous()" class="nice_button">Previous step</a>
+									<a href="javascript:void(0)" onClick="UI.Navigation.next()" class="nice_button">Next step</a>
+								</div>
+							</section>
+
+							<section class="box big" id="installer_step_4" style="display:none;">
+								<h2><img src="images/icons/black16x16/ic_grid.png"/> Database settings</h2>
+
+								<form>
+									<label for="cms_hostname">Website database host</label>
+									<input type="text" id="cms_hostname" />
+									
+									<label for="cms_username">Website database username</label>
+									<input type="text" id="cms_username" />
+
+									<label for="cms_password">Website database password</label>
+									<input type="text" id="cms_password" />
+
+									<label for="cms_database">Website database name</label>
+									<input type="text" id="cms_database" />
+
+									<label for="realmd_hostname">Realmd/logon/auth database host</label>
+									<input type="text" id="realmd_hostname" />
+									
+									<label for="realmd_username">Realmd/logon/auth database username</label>
+									<input type="text" id="realmd_username" />
+
+									<label for="realmd_password">Realmd/logon/auth database password</label>
+									<input type="text" id="realmd_password" />
+
+									<label for="realmd_database">Realmd/logon/auth database name</label>
+									<input type="text" id="realmd_database" />
+								</form>
+								
+								<div class="installer_navigation">
+									<a href="javascript:void(0)" onClick="UI.Navigation.previous()" class="nice_button">Previous step</a>
+									<a href="javascript:void(0)" onClick="UI.Navigation.next()" class="nice_button">Next step</a>
+								</div>
+							</section>
+
+							<section class="box big" id="installer_step_5" style="display:none;">
+								<h2><img src="images/icons/black16x16/ic_cloud.png"/> Realms</h2>
+								<span>
+									<label for="emulator">Emulator</label>
+									<select id="emulator">
+										<option disabled="disabled">Loading...</option>
+									</select>
+								</span>
+
+								<span>If you host the realm databases on another host (i.e. not on the server where you are running the emulator), you can configure that via the admin panel afterwards</span>
+
+								<ul id="realm_field"></ul>
+
+								<form onSubmit="Ajax.Realms.add(this); return false">
+									<label for="realmName">Realm name</label>
+									<input type="text" id="realmName" />
+
+									<label for="realmName">Hostname</label>
+									<input type="text" id="hostname" />
+
+									<label for="username">Database username</label>
+									<input type="text" id="username" />
+
+									<label for="password">Database password</label>
+									<input type="password" id="password" />
+
+									<label for="characters">Characters database</label>
+									<input type="text" id="characters"/>
+
+									<label for="world">World database</label>
+									<input type="text" id="world" />
+
+									<label for="cap">Max allowed players online</label>
+									<input type="text" id="cap" />
+
+									<label for="port">Realm port (usually 8085 for Trinity/MaNGoS based emulators and 8129 for ArcEmu)</label>
+									<input type="text" id="port" />
+
+									<label for="console_port">Console port (only required for emulators that use remote console systems; usually 3443 for RA and 7878 for SOAP)</label>
+									<input type="text" id="console_port" />
+
+									<label for="console_username" data-tip="For an ingame account with GM level high enough to connect to your<br />emulator console remotely (see your emulator's config files for more details)">Console username (only required for emulators that use remote console systems) (?)</label>
+									<input type="text" id="console_username" />
+
+									<label for="console_password" data-tip="For an ingame account with GM level high enough to connect to your<br />emulator console remotely (see your emulator's config files for more details)">Console password (only required for emulators that use remote console systems) (?)</label>
+									<input type="password" id="console_password" />
+
+									<input type="submit" value="Add realm" />
+								</form>
+
+								<div style="border-top:1px solid #ccc;margin-bottom:5px;"></div>
+								
+								<div class="installer_navigation">
+									<a href="javascript:void(0)" onClick="UI.Navigation.previous()" class="nice_button">Previous step</a>
+									<a href="javascript:void(0)" onClick="Ajax.Realms.next()" class="nice_button">Finish</a>
+								</div>
+							</section>
+
+							<section class="box big" id="installer_step_6" style="display:none;">
+								<h2><img src="images/icons/black16x16/ic_time.png"/> Installing...</h2>
+								<span id="install">
+
+								</span>
+							</section>
+						</aside>
+
+						<div class="clear"></div>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<footer>
+			<div class="center_1020">
+				<div class="divider2"></div>
+				<aside id="logo"><a href="http://fusion.raxezdev.com" class="logo"></a></aside>
+				<div class="divider"></div>
+				<aside id="links">
+					<a href="http://fusion.raxezdev.com" target="_blank">FusionHub</a>
+					<a href="http://fusion.raxezdev.com/modules" target="_blank">Modules</a>
+					<a href="http://fusion.raxezdev.com/themes" target="_blank">Themes</a>
+					<a href="http://fusion.raxezdev.com/support" target="_blank">Support</a>
+				</aside>
+				<div class="divider"></div>
+				<aside id="twitter">
+					<h1>Follow us on Twitter!</h1>
+					<div id="twitter_icon"></div>
+					<a href="http://twitter.com/FusionHub" target="_blank">@FusionHub</a>
+				</aside>
+				<div class="divider"></div>
+				<aside id="html5">
+					<a href="http://www.w3.org/html/logo/" data-tip="This website makes use of the next generation of web technologies">
+						<img src="images/html5.png">
+					</a>
+				</aside>
+				<div class="divider"></div>
+				<div class="clear"></div>
+			</div>
+		</footer>
+	</body>
+</html>
