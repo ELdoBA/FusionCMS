@@ -10,7 +10,7 @@
 	{
 		if(typeof Character != "undefined")
 		{
-			Character.getIcon({$id}, {$realm});
+			Character.getIcon({$id}, {$realm}, {$slot});
 		}
 		else
 		{
