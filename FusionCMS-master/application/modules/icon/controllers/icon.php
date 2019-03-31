@@ -2,6 +2,42 @@
 
 class Icon extends MX_Controller
 {
+	private $EmulatorSimpleString = '';
+	
+	private function getEmulatorString()
+	{
+		return $this->EmulatorSimpleString;
+	}
+	
+	private function getEmulatorBuild()
+	{
+		switch ($this->getEmulatorString())
+		{
+			//cata 4.3.4
+			case 'trinity_cata':
+				return '15595';
+			//cata 4.0.6a
+			case 'skyfire':
+			case 'arkcore':
+				return '13633';
+		}
+		
+		return false;
+	}
+	
+	private function isCataclysm()
+	{
+		switch ($this->getEmulatorString())
+		{
+			case 'trinity_cata':
+			case 'skyfire':
+			case 'arkcore':
+				return true;
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Get an item's icon display name and cache it
 	 * @param Int $realm
@@ -14,6 +50,9 @@ class Icon extends MX_Controller
 		// Check if ID and realm is valid
 		if($id != false && is_numeric($id) && $realm != false)
 		{
+			// Get the emulator string
+			$this->EmulatorSimpleString = str_replace(array('_ra', '_soap', '_rbac'), '', $this->realms->getRealm($realm)->getConfig('emulator'));
+			
 			// It is already a display ID
 			if($isDisplayId == 1)
 			{
@@ -22,7 +61,7 @@ class Icon extends MX_Controller
 			else
 			{
 				$displayId = $this->getDisplayId($id, $realm);
-
+				
 				if($displayId != false)
 				{
 					$icon = $this->getDisplayName($displayId);
@@ -37,7 +76,7 @@ class Icon extends MX_Controller
 					$icon = "inv_misc_questionmark";
 				}
 			}
-
+			
 			die($icon);
 		}
 	}
@@ -47,14 +86,50 @@ class Icon extends MX_Controller
 	 * @param Int $item
 	 * @return Int
 	 */
-	private function getDisplayId($item, $realm)
+	private function getDisplayId($entry, $realm)
 	{
+		$cache = $this->cache->get("items/item_displayid_".$realm."_".$entry);
+		if ($cache)
+		{
+			return $cache;
+		}
+		
 		$realmObj = $this->realms->getRealm($realm);
-		$item = $realmObj->getWorld()->getItem($item);
-
+		$item = $realmObj->getWorld()->getItem($entry);
+		
+		if ((!$item || $item == "empty") && $this->getEmulatorString() == 'trinity_cata')
+		{
+			return $this->getDisplayIdDB2($entry, $realm);
+		}
+		
+		//Cache the display id
+		$this->cache->save("items/item_displayid_".$realm."_".$entry, $item['displayid']);
+		
 		return $item['displayid'];
 	}
-
+	
+	private function getDisplayIdDB2($entry, $realm)
+	{
+		$query = $this->db->query("SELECT displayid FROM `data_cata_".$this->getEmulatorBuild()."_itemtemplate` WHERE entry=? LIMIT 1;", array($entry));
+		
+		if ($this->db->_error_message())
+		{
+			die($this->db->_error_message());
+		}
+		
+		if ($query && $query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+			
+			//Cache the display id
+			$this->cache->save("items/item_displayid_".$realm."_".$entry, $result[0]['displayid']);
+			
+			return $result[0]['displayid'];
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Get the display name from the raxezdev display ID API
 	 * @param Int $displayId
@@ -63,7 +138,7 @@ class Icon extends MX_Controller
 	private function getDisplayName($displayId)
 	{
 		$cache = $this->cache->get("items/display_".$displayId);
-
+		
 		// Can we use the cache?
 		if($cache !== false)
 		{
@@ -71,15 +146,15 @@ class Icon extends MX_Controller
 		}
 		else
 		{
-			$retailId = $this->findRetailItem($displayId);
+			$icon = $this->getIcon($displayId);
 			
-			if(!$retailId)
+			if(!$icon)
 			{
 				$name = "inv_misc_questionmark";
 			}
 			else
 			{
-				$name = $this->getIconName($retailId);
+				$name = str_replace(' ', '-', strtolower($icon));
 
 				// In case it wasn't found: show ?-icon
 				if(empty($name))
@@ -94,7 +169,34 @@ class Icon extends MX_Controller
 		
 		return $name;
 	}
-
+	
+	private function getIcon($DisplayId)
+	{
+		if ($this->isCataclysm())
+			$prefix = 'data_cata_' . $this->getEmulatorBuild();
+		else
+			$prefix = 'data_wotlk';
+			
+		$query = $this->db->query("SELECT * FROM `".$prefix."_itemdisplayinfo` WHERE `id` = ? LIMIT 1;", array($DisplayId));
+		
+		if ($this->db->_error_message())
+		{
+			die($this->db->_error_message());
+		}
+		
+		if ($query && $query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+			
+			return $result[0]['iconname'];
+		}
+		
+		unset($query);
+		
+		return false;
+	}
+	
+	/*
 	private function findRetailItem($id)
 	{
 		// Get the item ID
@@ -112,7 +214,7 @@ class Icon extends MX_Controller
 			return false;
 		}
 	}
-
+	
 	private function getIconName($item)
 	{
 		// Get the item XML data
@@ -134,7 +236,8 @@ class Icon extends MX_Controller
 
 		return $icon;
 	}
-
+	*/
+	
 	/**
 	 * Convert XML data to an array
 	 * @param String $xml
