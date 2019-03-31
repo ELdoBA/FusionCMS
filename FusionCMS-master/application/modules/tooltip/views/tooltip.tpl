@@ -1,6 +1,8 @@
 <div style="max-width:350px;">
 <span class='q{$item.quality}' style='font-size: 16px'>{$item.name}</span><br />
 
+{if $item.isHeroic}<div class="q2">Heroic</div>{/if}
+
 {if $item.bind}{$item.bind}<br />{/if}
 {if $item.unique}{$item.unique}<br />{/if}
 {if $item.slot}<div style='float:left;'>{$item.slot}</div>{/if}
@@ -27,7 +29,13 @@
 {if $item.shadow_res}+ {$item.shadow_res} {lang("shadow", "item")}<br />{/if}
 {if $item.arcane_res}+ {$item.arcane_res} {lang("arcane", "item")}<br />{/if}
 
+<div class="q2" id="tooltip-item-enchantments"></div>
+
+<div id="tooltip-item-sockets">
 {if $item.sockets}{$item.sockets}{/if}
+</div>
+
+{if $item.socketBonus}<div class="q0" id="tooltip-item-sock-bonus">Socket Bonus: {$item.socketBonus}</div>{/if}
 
 {if $item.durability}{lang("durability", "item")} {$item.durability} / {$item.durability}<br />{/if}
 {if $item.required}{lang("requires_level", "item")} {$item.required}<br />{/if}
@@ -52,5 +60,25 @@
 		</a>
 		<br />
 	{/foreach}
+{/if}
+
+{if $item.itemSet}
+    <div id="tooltip-item-set" style="padding-top: 10px;">
+        <div class="q" id="tooltip-item-set-name">{$item.itemSet.name} (<span id="tooltip-item-set-count">0</span>/{count($item.itemSet.items)})</div>
+    	<div id="tooltip-item-set-pieces" style="padding-left: 5px;">
+        	<ul style="list-style: none;" class="q0">
+            	{foreach from=$item.itemSet.items item=setItem}
+            	<li class="item-set-piece" data-itemset-item-entry="{$setItem.entry}" data-possible-entries="{$setItem.possibleItemEntries}">{$setItem.name}</li>
+                {/foreach}
+            </ul>
+        </div>
+        <div id="tooltip-item-set-bonuses" style="padding-top: 10px;">
+        	<ul style="list-style: none;" class="q0">
+            	{foreach from=$item.itemSet.setBonuses item=setBonus}
+            	<li class="item-set-bonus" data-bonus-required-items="{$setBonus.requiredItems}">({$setBonus.requiredItems}) Set: <span id="set-bonus-text">{$setBonus.spell}</span></li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
 {/if}
 </div>
