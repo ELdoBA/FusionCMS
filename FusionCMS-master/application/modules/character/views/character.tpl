@@ -234,7 +234,7 @@
                         </span>
                     </div>
                     <div id="info">
-                    	<span id="descr">Earned the achievement <a href="http://wotlk.openwow.com/achievement={$achiev.id}" target="_blank" data-tip='<div class="wiki-tooltip"><span class="icon-frame frame-56" style="background-image: url(http://wow.zamimg.com/images/wow/icons/large/{strtolower($achiev.iconname)}.jpg);"></span><h3><span class="q0">{if $achiev.points > 0}{$achiev.points} points{/if}</span>{str_replace("'", "&prime;", $achiev.name)}</h3><span class="color-tooltip-yellow">{str_replace("'", "&prime;", $achiev.description)}</span></div>'>{$achiev.name}</a>{if $achiev.points > 0} for {$achiev.points} points{/if}.</span> <br/><span id="date">{$achiev.date}</span>
+                    	<span id="descr">Earned the achievement <a href="http://wotlk.evowow.com/?achievement={$achiev.id}" target="_blank" data-tip='<div class="wiki-tooltip"><span class="icon-frame frame-56" style="background-image: url(http://wow.zamimg.com/images/wow/icons/large/{strtolower($achiev.iconname)}.jpg);"></span><h3><span class="q0">{if $achiev.points > 0}{$achiev.points} points{/if}</span>{str_replace("'", "&prime;", $achiev.name)}</h3><span class="color-tooltip-yellow">{str_replace("'", "&prime;", $achiev.description)}</span></div>'>{$achiev.name}</a>{if $achiev.points > 0} for {$achiev.points} points{/if}.</span> <br/><span id="date">{$achiev.date}</span>
                     </div>
                     <div class="clear"></div>
                 </li>
