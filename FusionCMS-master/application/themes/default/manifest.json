@@ -5,8 +5,7 @@
 	
 	"favicon": "favicon.gif",
 
-	"normal_avatar": "avatars/0_normal.jpg",
-	"small_avatar": "avatars/0_small.jpg",
+	"avatar": "avatars/avatar.jpg",
 
 	"slider_text": {
 		"next": "Next",
