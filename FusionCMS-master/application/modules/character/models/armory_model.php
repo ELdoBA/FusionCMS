@@ -338,13 +338,13 @@ class Armory_model extends CI_Model
 				return false;
 		}
 		
-		$statements['trinity'] 		=
-		$statements['trinity_cata'] =
-		$statements['arkcore'] 		=
-		$statements['skyfire'] 		= "SELECT `spell` FROM `character_talent` WHERE `guid` = ? AND `spec` = ? ORDER BY `spell` DESC;";
-		
-		$statements['mangos'] 		=
-		$statements['mangosr2'] 	= "SELECT `talent_id`, `current_rank` FROM `character_talent` WHERE `guid` = ? AND `spec` = ? ORDER BY `talent_id` DESC;";
+		$statements['trinity']      = 'SELECT `spell` FROM `character_talent` WHERE `guid` = ? AND `specMask` = ? ORDER BY `spell` DESC;';
+        $statements['trinity_cata'] = 'SELECT `spell` FROM `character_talent` WHERE `guid` = ? AND `specMask` = ? ORDER BY `spell` DESC;';
+        $statements['arkcore']      =
+        $statements['skyfire']      = 'SELECT `spell` FROM `character_talent` WHERE `guid` = ? AND `specMask` = ? ORDER BY `spell` DESC;';
+
+        $statements['mangos']       =
+        $statements['mangosr2']     = 'SELECT `talent_id`, `current_rank` FROM `character_talent` WHERE `guid` = ? AND `spec` = ? ORDER BY `talent_id` DESC;';
 		
 		$query = $this->connection->query($statements[$this->getEmulatorString()], array($this->id, $spec));
 		
@@ -403,10 +403,10 @@ class Armory_model extends CI_Model
 				return false;
 		}
 		
-		$statements['trinity'] 		=
-		$statements['trinity_cata'] =
-		$statements['arkcore'] 		=
-		$statements['skyfire'] 		= "SELECT * FROM `character_glyphs` WHERE `guid` = ? AND `spec` = ? LIMIT 1;";
+		$statements['trinity']      =
+        $statements['trinity_cata'] =
+        $statements['arkcore']      =
+        $statements['skyfire']      = 'SELECT * FROM `character_glyphs` WHERE `guid` = ? AND `talentGroup` = ? LIMIT 1;';
 		
 		$statements['mangos'] 		=
 		$statements['mangosr2'] 	= "SELECT `slot`, `glyph` FROM `character_glyphs` WHERE `guid` = ? AND `spec` = ?;";
@@ -442,13 +442,13 @@ class Armory_model extends CI_Model
 				return false;
 		}
 		
-		$statements['trinity'] 		=
-		$statements['trinity_cata'] =
-		$statements['arkcore'] 		=
-		$statements['skyfire'] 		= "SELECT `speccount`, `activespec` FROM `characters` WHERE `guid` = ? LIMIT 1;";
-		
-		$statements['mangos'] 		=
-		$statements['mangosr2'] 	= "SELECT `specCount` AS speccount, `activeSpec` AS activespec FROM `characters` WHERE `guid` = ? LIMIT 1;";
+		$statements['trinity']      = 'SELECT `talentGroupsCount`, `activeTalentGroup` FROM `characters` WHERE `guid` = ? LIMIT 1;';
+        $statements['trinity_cata'] = 'SELECT `talentGroupsCount`, `activeTalentGroup` FROM `characters` WHERE `guid` = ? LIMIT 1;';
+        $statements['arkcore']      =
+        $statements['skyfire']      = 'SELECT `talentGroupsCount`, `activeTalentGroup` FROM `characters` WHERE `guid` = ? LIMIT 1;';
+
+        $statements['mangos']       =
+        $statements['mangosr2']     = 'SELECT `talentGroupsCount` AS talentGroupsCount, `activeTalentGroup` AS activeTalentGroup FROM `characters` WHERE `guid` = ? LIMIT 1;';
 		
 		$query = $this->connection->query($statements[$this->getEmulatorString()], array($this->id));
 

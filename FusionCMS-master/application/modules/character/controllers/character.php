@@ -1067,12 +1067,12 @@ class Character extends MX_Controller
 		$this->talentSpecsInfo = $this->armory_model->getTalentSpecsInfo();
 		
 		//loop the specs 
-		for ($spec = 0; $spec < $this->talentSpecsInfo['speccount']; $spec++)
+		for ($spec = 0; $spec < $this->talentSpecsInfo['talentGroupsCount']; $spec++)
 		{
 			//Get the character talents for the spec
-			$this->talents[$spec] = $this->armory_model->getTalents($spec);
+			$this->talents[$spec] = $this->armory_model->getTalents($spec+1);
 			//Get the glyphs for the spec
-			$this->glyphs[$spec] = $this->getCharGlyphsTable($spec);
+			$this->glyphs[$spec] = $this->getCharGlyphsTable($spec+1);
 		}
 		
 		//Get the talent tree info
@@ -1135,7 +1135,7 @@ class Character extends MX_Controller
 	
 	private function getActiveSpec()
 	{
-		return $this->talentSpecsInfo['activespec'];
+		return $this->talentSpecsInfo['activeTalentGroup'];
 	}
 	
 	private function getSpecsTable()
@@ -1143,14 +1143,14 @@ class Character extends MX_Controller
 		$table = false;
 		
 		//loop the specs 
-		for ($spec = 0; $spec < $this->talentSpecsInfo['speccount']; $spec++)
+		for ($spec = 0; $spec < $this->talentSpecsInfo['talentGroupsCount']; $spec++)
 		{
 			//defaults
 			$table[$spec] = array(
 				'title'		=> 'Undetermined',
 				'icon'		=> false,
 				'points'	=> '0/0/0',
-				'active'	=> ($spec == $this->talentSpecsInfo['activespec'] ? true : false),
+				'active'	=> ($spec == $this->talentSpecsInfo['activeTalentGroup'] ? true : false),
 				'mainTree'	=> false
 			);
 			$tabPoints = array();
@@ -1350,7 +1350,7 @@ class Character extends MX_Controller
 		$table = false;
 		
 		//loop the specs 
-		for ($spec = 0; $spec < $this->talentSpecsInfo['speccount']; $spec++)
+		for ($spec = 0; $spec < $this->talentSpecsInfo['talentGroupsCount']; $spec++)
 		{
 			$table[$spec] = $this->getTalentTable($spec);
 		}
@@ -1361,7 +1361,7 @@ class Character extends MX_Controller
 	private function getCharGlyphsTable($spec)
 	{
 		//Get some info about the glyphs and convert to table
-		$charGlyphsData = $this->armory_model->getGlyphs($spec);
+		$charGlyphsData = $this->armory_model->getGlyphs($spec - 1);
 		
 		//handle glyph records for diferrent emulators
 		switch ($this->getEmulatorString())
@@ -1482,7 +1482,7 @@ class Character extends MX_Controller
 		$table = false;
 		
 		//loop the specs 
-		for ($spec = 0; $spec < $this->talentSpecsInfo['speccount']; $spec++)
+		for ($spec = 0; $spec < $this->talentSpecsInfo['talentGroupsCount']; $spec++)
 		{
 			$table[$spec] = $this->getGlyphTable($spec);
 		}
