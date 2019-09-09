@@ -132,7 +132,7 @@ $("[data-tip-talent]").hover(
 				//hide the rank column
 				data.tooltip.find('#spell-tooltip-rank').css('display', 'none');
 				//append the talnet rank
-				data.tooltip.find('#spell-tooltip-name').after('<br><b>Rango '+$rank+'/'+$max+'</b>');
+				data.tooltip.find('#spell-tooltip-name').after('<br><b>Rank '+$rank+'/'+$max+'</b>');
 				
 				//save as loaded
 				Character.loadedTalents[$spellId] = data;
@@ -210,7 +210,7 @@ $("[data-tip-glyph]").hover(
 		}
 		else
 		{
-			Tooltip.show('<b style="font-size: 15px;">Vacio</b><br /><span style="color: #71D5FF;">'+$type+'</span>');
+			Tooltip.show('<b style="font-size: 15px;">Empty</b><br /><span style="color: #71D5FF;">'+$type+'</span>');
 		}
 	},
 	function()
