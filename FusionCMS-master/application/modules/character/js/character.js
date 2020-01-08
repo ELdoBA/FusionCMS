@@ -392,11 +392,11 @@ function TooltipExtended() {
                 case 1:
                     return 'Meta';
                 case 2:
-                    return 'Roja';
+                    return 'Red';
                 case 4:
-                    return 'Amarilla';
+                    return 'Yellow';
                 case 8:
-                    return 'Azul';
+                    return 'Blue';
             }
 
             return 'Desconocida ' + id;
