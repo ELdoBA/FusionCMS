@@ -14,6 +14,8 @@
 
 - PHP Version >= 5.6
 
+- MySQL >= 5.6
+
 - Php Extensions : php_mysqli, php_curl, php_openssl, php_soap, php_gd, php_mbstring, php_json, php_mcrypt
 
 - Apache Modules : mod_rewrite, mod_headers, mod_expires, mod_deflate
