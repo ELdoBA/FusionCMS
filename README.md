@@ -10,4 +10,10 @@
 
 - Poszer
 
-![Fusion CMS](https://camo.githubusercontent.com/8ed3933ec99fa03c235c94a8f9c409b93057b461/68747470733a2f2f6a65737065726c696e647374726f6d2e6d652f696d616765732f667573696f6e636d735f66756c6c2e6a7067)
+# Requirements
+
+- PHP Version >= 5.6
+
+- Php Extensions : php_mysqli, php_curl, php_openssl, php_soap, php_gd, php_mbstring, php_json, php_mcrypt
+
+- Apache Modules : mod_rewrite, mod_headers, mod_expires, mod_deflate
