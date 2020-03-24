@@ -184,7 +184,7 @@ class Internal_user_model extends CI_Model
 			return false;
 		}
 	}
-
+	
 	public function getIdByNickname($nickname)
 	{
 		$query = $this->connection->query("SELECT id FROM account_data WHERE nickname = ?", array($nickname));
@@ -194,21 +194,6 @@ class Internal_user_model extends CI_Model
 			$result = $query->result_array();
 			
 			return $result[0]['id'];
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	public function getAvatarById($id)
-	{
-		$query = $this->connection->query("SELECT avatar FROM account_data WHERE id = ?", array($id));
- 		if($query->num_rows() > 0)
-		{
-			$result = $query->result_array();
-			
-			return $result[0]['avatar'];
 		}
 		else
 		{

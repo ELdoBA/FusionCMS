@@ -37,7 +37,7 @@ class CI_Upload {
 	public $file_type				= "";
 	public $file_size				= "";
 	public $file_ext				= "";
-	public $upload_path				= './uploads/';
+	public $upload_path				= "";
 	public $overwrite				= FALSE;
 	public $encrypt_name			= FALSE;
 	public $is_image				= FALSE;
