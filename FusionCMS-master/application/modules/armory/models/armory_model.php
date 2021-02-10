@@ -14,7 +14,7 @@ class Armory_model extends CI_Model
 		$world_database->connect();
 		
 		//Get the connection and run a query
-		$query = $world_database->getConnection()->query("SELECT ".columns("item_template", array("entry", "name", "ItemLevel", "RequiredLevel", "InventoryType", "Quality", "class", "subclass"), $realmId)." FROM ".table("item_template", $realmId)." WHERE UPPER(".column("item_template", "name", false, $realmId).") LIKE ? ORDER BY ".column("item_template", "ItemLevel", false, $realmId)." DESC", array('%'.strtoupper($searchString).'%'));
+		$query = $world_database->getConnection()->query("SELECT ".columns("item_template", array("entry", "name", "ItemLevel", "RequiredLevel", "InventoryType", "Quality", "class", "subclass"), $realmId)." FROM ".table("item_template", $realmId)." WHERE UPPER(".column("item_template", "name", false, $realmId).") LIKE ? ORDER BY ".column("item_template", "ItemLevel", false, $realmId)." DESC", array('%'.mb_strtoupper($searchString).'%'));
 
 		if($query->num_rows() > 0)
 		{
@@ -55,7 +55,7 @@ class Armory_model extends CI_Model
 		$character_database->connect();
 		
 		//Get the connection and run a query
-		$query = $character_database->getConnection()->query("SELECT ".columns("characters", array("guid", "name", "race", "gender", "class", "level"), $realmId)." FROM ".table("characters", $realmId)." WHERE UPPER(".column("characters", "name", false, $realmId).") LIKE ? ORDER BY ".column("characters", "level", false, $realmId)." DESC", array('%'.strtoupper($searchString).'%'));
+		$query = $character_database->getConnection()->query("SELECT ".columns("characters", array("guid", "name", "race", "gender", "class", "level"), $realmId)." FROM ".table("characters", $realmId)." WHERE UPPER(".column("characters", "name", false, $realmId).") LIKE ? ORDER BY ".column("characters", "level", false, $realmId)." DESC", array('%'.mb_strtoupper($searchString).'%'));
 
 		if($query->num_rows() > 0)
 		{
